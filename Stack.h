@@ -37,22 +37,31 @@ int StackPush(int value)
 
 int StackPop()
 {
-    if (head->next == NULL) return -1;
+    int data;
+    if (head->next == NULL)  exit(-1);
     Node* pointnode = head->next;
     head->next = pointnode->next;
+    data = pointnode->value;
     free(pointnode);
-    return 0;
+    return data;
 }
 
 int StackTop()
 {
-    if(head->next == NULL) return -1;
+    if(head->next == NULL) exit(-1);
     return head->next->value;
 }
 
 int FreeStack()
 {
-    while(StackPop()!=-1);
+    Node *pointnode = head->next;
+    Node *nextnode;
+    while(pointnode != NULL)
+    {
+        nextnode = pointnode->next;
+        free(pointnode);
+        pointnode = nextnode;
+    }
     return 0;
 }
 
